@@ -1,28 +1,92 @@
-var number = prompt('Please enter your phone number in this format: xxx-xxx-xxxx');
-
-if ((number.charAt(3) !== '-') || (number.charAt(7) !== '-')) {
-    alert("That's not a valid input");
+// global functions
+var isNumber = function(n) { 
+    return !isNaN(parseFloat(n)) && isFinite(n); 
 }
 
-var birthday = prompt('Enter your birthday is this format: xx/xx/xxxx');
-
-if ((birthday.charAt(2) !== '/') || (birthday.charAt(5) !== '/')) {
-    alert("Double check your birthday format...")
+// phone number
+var validatePhoneNumber = function() {
+    var number = prompt('Please enter your phone number in this format: xxx-xxx-xxxx');
+    
+    var goodNumber = true;
+    
+    if (number.length !== 12) {
+        goodNumber = false;
+    }
+    
+    for (var i=0; i<number.length; i++) {
+        if (i === 3 || i === 7) {
+            if (number[i] !== '-') {
+                goodNumber = false
+            }
+        }
+        else {
+            if ( !isNumber(number[i]) ) {
+                goodNumber = false;
+                console.log(i);
+                console.log(number[i])
+            }
+        }
+    }
+    
+    if (goodNumber) {
+        alert("Thanks")
+    }
+    else {
+        alert("Try again")
+        validatePhoneNumber()
+    }
 }
+validatePhoneNumber();
 
-var state = prompt("Enter your state abbreviation in all caps");
-if ((state.charAt(0)) !== (state.charAt(0).toUpperCase()) || (state.charAt(1)) !== (state.charAt(1).toUpperCase())) {
-    alert("Make sure your letters are capitalized");
+// birthdate 
+var validateBirthday = function() {
+    var birthday = prompt('Enter your birthday in this format: \n xx/xx/xx')
+    
+    var goodBDay = true;
+    
+    if (birthday.length !== 8) {
+        goodBDay = false;
+    }
+    
+    for (var i =0; i<birthday.length; i++) {
+        if (i === 2 || i === 5) {
+            if (birthday[i] !== '/') {
+                goodBDay = false;
+            }
+        }
+    }
+    
+    if (goodBDay) {
+        alert("that's a great day")
+    }
+    else {
+        alert("you seem to be confused")
+        validateBirthday();
+    }
 }
+validateBirthday();
 
-var married = prompt('Are you married? (yes or no)');
+// postal code
 
-if (married.toUpperCase() === 'YES') {
-    alert("Tell your spouse hi from me.")
-}
-else if (married.toUpperCase() === 'NO') {
-    alert("Living the single life!")
-}
-else {
-    alert("Question too hard for you?")
+var validatePostalCode = function() {
+    var postalCode = prompt('Enter your postal code in either format: \n xxxxx or xxxxx-xxxx')
+    
+    var goodPost = true;
+    
+    if (postalCode.length !== 5 || postalCode.length !== 10) {
+        goodPost = false;
+    }
+    
+    for (var i=0; i<postalCode.length; i++) {
+        if (postalCode[i] === 5 && postalCode[i] !== '-') {
+            goodPost = false;
+        }
+        else {
+            if (!isNumber(postalCode[i])) {
+                goodPost = false;
+            }
+        }
+    }
+    
+    alert(goodPost);
 }
