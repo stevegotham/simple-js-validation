@@ -36,11 +36,10 @@ var validatePhoneNumber = function() {
         validatePhoneNumber()
     }
 }
-validatePhoneNumber();
 
 // birthdate 
 var validateBirthday = function() {
-    var birthday = prompt('Enter your birthday in this format: \n xx/xx/xx')
+    var birthday = prompt('Enter your birthday in this format: \n mo/dy/yr')
     
     var goodBDay = true;
     
@@ -56,6 +55,20 @@ var validateBirthday = function() {
         }
     }
     
+    var birthdayArray = birthday.split('/');
+
+    if (birthdayArray[0] == 00 || birthdayArray[0] > 12 || birthdayArray[1] == 00 || birthdayArray[1] > 31) {
+        goodBDay = false;
+    }
+    
+    if (birthdayArray[0] == 02 && birthdayArray[1] > 29) {
+        goodBDay = false;
+    }
+    
+    if ((birthdayArray[0] == 4 || birthdayArray[0] == 6 || birthdayArray[0] == 9 || birthdayArray[0] == 11) && birthdayArray[1] > 30) {
+        goodBDay = false;
+    }
+
     if (goodBDay) {
         alert("that's a great day")
     }
@@ -64,7 +77,6 @@ var validateBirthday = function() {
         validateBirthday();
     }
 }
-validateBirthday();
 
 // postal code
 
@@ -90,3 +102,7 @@ var validatePostalCode = function() {
     
     alert(goodPost);
 }
+
+
+validatePhoneNumber();
+validateBirthday();
